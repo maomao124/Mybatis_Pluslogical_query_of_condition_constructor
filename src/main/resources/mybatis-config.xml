@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+    <!--加载properties文件-->
+    <properties resource="jdbc.properties"/>
+
+
+    <!--*****************************************************************************-->
+
+
+    <settings>
+        <!-- 配置项	        作用	                                配置选项	     默认值-->
+        <!--cacheEnabled	该配置影响所有映射器中配置缓存的全局开关	true|false	  true-->
+        <setting name="cacheEnabled" value="true"/>
+        <!--延迟加载的全局开关。当开启时，所有关联对象都会延迟加载。
+        在特定关联关系中可通过设置fetchType属性来覆盖该项的开关状态 	true|false	 false-->
+        <setting name="lazyLoadingEnabled" value="false"/>
+        <!--是否允许单一语句返回多结果集（需要兼容驱动）              	true|false	 true-->
+        <setting name="multipleResultSetsEnabled" value="true"/>
+        <!--使用列标签代替列名。不同的驱动会有不同的表现            	true|false	  true-->
+        <setting name="useColumnLabel" value="true"/>
+        <!--允许JDBC支持自动生成主键，需要驱动兼容。如果设置为 true，
+        则这个设置强制使用自动生成主键，
+        尽管一些驱动不能兼容但仍可正常工作（比如 Derby）	            true|false	  false-->
+        <setting name="useGeneratedKeys" value="false"/>
+        <!--指定MyBatis应如何自动映射列到字段或属性。-->
+        <!--NONE 表示取消自动映射。-->
+        <!--PARTIAL 表示只会自动映射，没有定义嵌套结果集和映射结果集。-->
+        <!--FULL 会自动映射任意复杂的结果集（无论是否嵌套）	      NONE、PARTIAL、FULL	 PARTIAL-->
+        <setting name="autoMappingBehavior" value="PARTIAL"/>
+        <!--指定自动映射当中未知列（或未知属性类型）时的行为。 默认是不处理，
+        只有当日志级别达到 WARN 级别或者以下，才会显示相关日志，
+        如果处理失败会抛出 SqlSessionException 异常	              NONE、WARNING、FAILING  	NONE-->
+        <setting name="autoMappingUnknownColumnBehavior" value="NONE"/>
+        <!--配置默认的执行器。SIMPLE 是普通的执行器；
+        REUSE会重用预处理语句（prepared statements）；
+        BATCH 执行器将重用语句并执行批量更新 	                   SIMPLE、REUSE、BATCH	   SIMPLE-->
+        <setting name="defaultExecutorType" value="SIMPLE"/>
+        <!--设置超时时间，它决定驱动等待数据库响应的秒数                 任何正整数	        Not Set(null)-->
+        <setting name="defaultStatementTimeout" value="30"/>
+        <!--设置数据库驱动程序默认返回的条数限制，此参数可以重新设置	      任何正整数          Not Set(null)-->
+        <!--<setting name="defaultFetchSize" value="null"/>-->
+        <!--允许在嵌套语句中使用分页（RowBounds）。如果允许，设置false   true|false	       false-->
+        <setting name="safeRowBoundsEnabled" value="false"/>
+        <!--是否开启自动驼峰命名规则映射，即从经典数据库列名
+        A_COLUMN到经典Java属性名aColumn的类似映射	                  true|false	       false-->
+        <setting name="mapUnderscoreToCamelCase" value="false"/>
+        <!--MyBatis利用本地缓存机制（Local Cache）防止循环引用
+        （circular references）和加速联复嵌套査询。
+         默认值为 SESSION，这种情况下会缓存一个会话中执行的所有查询。
+         若设置值为 STATEMENT，本地会话仅用在语句执行上，
+         对相同 SqlSession 的不同调用将不会共享数据  	            SESSION|STATEMENT	   SESSION-->
+        <setting name="localCacheScope" value="SESSION"/>
+        <!--当没有为参数提供特定的JDBC类型时，为空值指定JDBC类型。
+        某些驱动需要指定列的JDBC类型                              	NULL、VARCHAR、OTHER  	OTHER-->
+        <setting name="jdbcTypeForNull" value="OTHER"/>
+        <!--指定哪个对象的方法触发一次延迟加载                            	—	            equals、clone、hashCode、toString-->
+        <setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString"/>
+        <!--指定当结果集中值为null时，
+        是否调用映射对象的setter（map对象时为put）方法                  true|false	        false-->
+        <setting name="callSettersOnNulls" value="false"/>
+        <!--指定 MyBatis 所用日志的具体实现，未指定时将自动査找	SLF4J|LOG4J|LOG4J2|JDK_LOGGING|
+                                                            COMMONS_LOGGING |
+                                                            ST DOUBT_LOGGING|
+                                                            NO_LOGGING	                   Not set-->
+        <!--<setting name="logImpl" value="SLF4J"/>-->
+    </settings>
+
+
+    <!--*****************************************************************************-->
+
+
+    <typeAliases>
+        <!--设置别名   alias：别名 ，type类的全名-->
+        <!--<typeAlias alias="" type=""/>-->
+        <!--同一个包下的多个类定义别名  name：包名-->
+        <package name="data"/>
+    </typeAliases>
+
+
+    <!--*****************************************************************************-->
+
+
+    <!--类型处理器，  作用：jdbcType和javaType之间的相互转换-->
+    <!--需要实现org.apache.ibatis.type.TypeHandler接口或继承org.apache.ibatis.type.BaseTypeHandle类-->
+    <typeHandlers>
+
+    </typeHandlers>
+
+
+    <!--*****************************************************************************-->
+
+
+    <!--<plugins>-->
+    <!--    &lt;!&ndash;分页助手&ndash;&gt;-->
+    <!--    <plugin interceptor="com.github.pagehelper.PageHelper">-->
+    <!--        &lt;!&ndash;设置方言&ndash;&gt;-->
+    <!--        <property name="dialect" value="mysql"/>-->
+    <!--        &lt;!&ndash; 该参数默认为false &ndash;&gt;-->
+    <!--        &lt;!&ndash; 设置为true时，使用RowBounds分页会进行count查询,也就是是否查询数据总条数 &ndash;&gt;-->
+    <!--        <property name="rowBoundsWithCount" value="true"/>-->
+    <!--    </plugin>-->
+    <!--</plugins>-->
+
+
+    <!--*****************************************************************************-->
+
+
+    <!-- 配置mybatis运行环境 ，default：默认运行环境 -->
+    <environments default="development">
+        <environment id="development">
+            <!-- 使用JDBC的事务管理 ，两个事务管理器，JDBC或MANAGED-->
+            <transactionManager type="JDBC"/>
+
+            <!--配置数据库的连接属性-->
+            <!--type属性用于指定数据源类型-->
+            <!--UNPOOLED ：没有数据库连接池，效率低下。MyBatis需要打开和关闭每个数据库操作的连接，它有点慢，通常应用于简单的应用程序。-->
+            <!--POOLED：   对于 POOLED 数据源类型，MyBatis将维护一个数据库连接池。并且对于每个数据库的操作，-->
+            <!--           MyBatis都会使用连接池中的连接，并在操作完成后将它们返回到池中。减少了创建新连接所需的初始连接和身份验证时间。-->
+            <!--JNDI：     对于JNDI的数据源类型，MyBatis将从JNDI数据源中获取连接。-->
+            <dataSource type="POOLED">
+                <!-- MySQL数据库驱动 -->
+                <property name="driver" value="${jdbc.driver}"/>
+                <!-- 连接数据库的URL -->
+                <property name="url" value="${jdbc.url}"/>
+                <!--用户名-->
+                <property name="username" value="${jdbc.username}"/>
+                <!--密码-->
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+
+    <!--*****************************************************************************-->
+
+
+    <!--将mapper文件加入到配置文件中，指定MyBatisSQL映射文件的路径-->
+    <mappers>
+        <package name="mapper"/>
+    </mappers>
+</configuration>
