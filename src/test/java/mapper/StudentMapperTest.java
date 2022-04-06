@@ -32,8 +32,14 @@ import static org.junit.jupiter.api.Assertions.*;
  * AND 嵌套
  */
 
+
 class StudentMapperTest
 {
+    /**
+     * Or.
+     *
+     * @throws IOException the io exception
+     */
     @Test
     public void or() throws IOException
     {
@@ -61,6 +67,11 @@ class StudentMapperTest
         sqlSession.close();
     }
 
+    /**
+     * And.
+     *
+     * @throws IOException the io exception
+     */
     @Test
     public void and() throws IOException
     {
